@@ -12,7 +12,10 @@ public class ContactoServiceImp implements ContactoService{
     @Autowired
     private ContactoRepository contactoRepository;
     @Override
-    public List<Contacto> ListarContactos() {
+    public List<Contacto> ListarContactos(String palabraClave) {
+        if(palabraClave!=null){
+            return contactoRepository.findAll(palabraClave);
+        }
         return contactoRepository.findAll();
     }
 

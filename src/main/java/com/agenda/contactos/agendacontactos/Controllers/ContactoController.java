@@ -4,6 +4,7 @@ import com.agenda.contactos.agendacontactos.Entities.Contacto;
 import com.agenda.contactos.agendacontactos.Services.ContactoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,8 +21,9 @@ public class ContactoController {
     @Autowired
     private ContactoService contactoService;
     @GetMapping({"/",""})
-    public String verPaginaInicio(Model model){
-        model.addAttribute("contactos", contactoService.ListarContactos());
+    public String verPaginaInicio(Model model, @Param("palabraClave") String palabraClave){
+        model.addAttribute("contactos", contactoService.ListarContactos(palabraClave));
+        model.addAttribute("palabraClave",palabraClave);
         return "index";
     }
     @GetMapping("/nuevo")
